@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import { Switch, NavLink, Route } from "react-router-dom";
 import axios from "axios";
 
 import Signup from './components/user-pages/Signup';
 import Login from './components/user-pages/Login.js';
+import Home from './components/Home';
 
 class App extends Component {
   constructor(){
@@ -35,16 +37,32 @@ class App extends Component {
       <div className="App">
         <header>
          <h1> IronPhones ☎ </h1>
+         <nav>
+           <NavLink to="/"> Home</NavLink>
+           <NavLink to="/signup-page"> Sign Up</NavLink>
+           <NavLink to="/login-page"> Login </NavLink>
+         </nav>
         </header>
 
-        <Signup currentUser={this.state.currentUser} 
-          onUserChange={ userDoc => this.syncCurrentUser(userDoc) }   />
+        <Switch>
+          <Route exact path="/" component={Home} />
 
-        <Login currentUser={ this.state.currentUser } 
-           onUserChange={userDoc => this.syncCurrentUser(userDoc)} />
 
+        <Route path="/signup-page" render={() => 
+         <Signup currentUser={this.state.currentUser} 
+          onUserChange={ userDoc => this.syncCurrentUser(userDoc) } />
+        }  />
+
+        <Route path="/login-page" render={() => 
+          <Login currentUser={ this.state.currentUser } 
+          onUserChange={userDoc => this.syncCurrentUser(userDoc)} />
+        }  />
+        </Switch>
+
+        
         <footer>
-          Made with ❤️ at Ironhack - PTWD 2019
+          <br/>
+          MADE WITH 100% FAKE MEAT!!! 
         </footer>
       </div>
     );
